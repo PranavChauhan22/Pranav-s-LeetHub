@@ -1,3 +1,4 @@
+[Discussion Post (created on 1/0/2022 at 19:52)](https://leetcode.com/problems/partition-labels/discuss/1659937/C%2B%2B-or-Simple-Approach-or-Linear-Time)  
 <h2>763. Partition Labels</h2><h3>Medium</h3><hr><div><p>You are given a string <code>s</code>. We want to partition the string into as many parts as possible so that each letter appears in at most one part.</p>
 
 <p>Return <em>a list of integers representing the size of these parts</em>.</p>
