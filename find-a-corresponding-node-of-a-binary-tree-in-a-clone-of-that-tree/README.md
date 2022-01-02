@@ -1,3 +1,4 @@
+[Discussion Post (created on 2/0/2022 at 17:47)](https://leetcode.com/problems/find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree/discuss/1662140/C%2B%2B-Solution-or-Recursion)  
 <h2>1379. Find a Corresponding Node of a Binary Tree in a Clone of That Tree</h2><h3>Medium</h3><hr><div><p>Given two binary trees <code>original</code> and <code>cloned</code> and given a reference to a node <code>target</code> in the original tree.</p>
 
 <p>The <code>cloned</code> tree is a <strong>copy of</strong> the <code>original</code> tree.</p>
