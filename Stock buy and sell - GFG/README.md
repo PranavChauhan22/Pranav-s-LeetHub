@@ -35,7 +35,7 @@ give us maximum profit.</span></pre>
 
 <p><br>
 <span style="font-size:18px"><strong>Your Task:</strong><br>
-The task is to complete the function <strong>stockBuySell()</strong> which takes an array A[] and N as input parameters and finds the days of buying and selling stock. The function must return a 2D list of integers containing all the buy-sell pairs. If there is No Profit, return an empty list. </span></p>
+The task is to complete the function <strong>stockBuySell()</strong> which takes an array A[] and N as input parameters and finds the days of buying and selling stock. The function must return a 2D list of integers containing all the buy-sell pairs i.e. first value of pair will represent the day on which you buy&nbsp;the stock and second value represent the day on which you sell that stock. If there is No Profit, return an empty list. </span></p>
 
 <p>&nbsp;</p>
 
