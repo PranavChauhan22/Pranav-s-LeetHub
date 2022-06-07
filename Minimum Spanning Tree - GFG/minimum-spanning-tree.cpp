@@ -8,39 +8,64 @@ using namespace std;
 class Solution
 {
 	public:
-	//Function to find sum of weights of edges of the Minimum Spanning Tree.
 	struct Pair{
 	    int x;
+	    int y;
 	    int wgt;
-	    Pair(int _x,int _wgt){
-	        x=_x;
+	    Pair(int _wgt,int _y,int _x){
 	        wgt=_wgt;
+	        y=_y;
+	        x=_x;
 	    }
 	};
-	struct comp{
-	    bool operator()(struct Pair&a,struct Pair&b){
-	        return a.wgt>b.wgt;
+bool static comp(Pair a,Pair b){
+    return a.wgt<b.wgt;
+}
+	//Function to find sum of weights of edges of the Minimum Spanning Tree.
+	int find(int x, vector<int>&par){
+	    if(par[x]==x){
+	        return x;
 	    }
-	};
+	    par[x]=find(par[x],par);
+	    return par[x];
+	}
+	bool unionI(int x,int y,vector<int>&par,vector<int> &rank){
+	    int lx=find(x,par);
+	    int ly=find(y,par);
+	    if(lx!=ly){
+	        if(rank[lx]>rank[ly]){
+	            par[ly]=lx;
+	        }else if(rank[ly]>rank[lx]){
+	            par[lx]=ly;
+	        }else{
+	            par[lx]=ly;
+	            rank[ly]++;
+	        }
+	        return true;
+	    }
+	        return false;
+	    
+	}
     int spanningTree(int V, vector<vector<int>> adj[])
     {
+        
+        vector<int> par(V);
+        vector<int> rank(V,0);
+        for(int i=0;i<V;i++){
+            par[i]=i;
+        }
         int ans=0;
+        vector<Pair> v;
         
-        
-        priority_queue<Pair,vector<Pair>,comp> pq;
-        pq.push(Pair(0,0));
-        vector<bool> vis(V,false);
-        while(pq.size()>0){
-            Pair src=pq.top();pq.pop();
-            if(vis[src.x]){
-                continue;
+        for(int i=0;i<V;i++){
+            for(auto it:adj[i]){
+                v.push_back(Pair(it[1],it[0],i));
             }
-            vis[src.x]=true;
-            ans+=src.wgt;
-            for(auto it:adj[src.x]){
-                if(!vis[it[0]]){
-                    pq.push(Pair(it[0],it[1]));
-                }
+        }
+        sort(v.begin(),v.end(),comp);
+        for(auto it:v){
+            if(unionI(it.x,it.y,par,rank)){
+                ans+=it.wgt;
             }
         }
         return ans;
