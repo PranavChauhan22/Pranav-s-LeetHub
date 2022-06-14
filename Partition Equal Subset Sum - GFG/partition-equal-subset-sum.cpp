@@ -9,17 +9,24 @@ using namespace std;
 
 class Solution{
 public:
-    bool solve(int N,int arr[],int idx,int sum){
-        if(sum==0){
+    bool solve(int N,int arr[],int s,int i){
+        
+        if(s==0){
             return true;
         }
-        if(idx==N){
+        if(i==N){
             return false;
         }
-        if(arr[idx]<=sum){
-            if(solve(N,arr,idx+1,sum-arr[idx])){return true;}   
+        if(s>=arr[i]){
+        int l=solve(N,arr,s-arr[i],i+1);
+        if(l){
+            return true;
         }
-        if(solve(N,arr,idx+1,sum)){return true;}  
+        }
+        if(solve(N,arr,s,i+1)){
+            return true;
+        }
+        return false;
     }
     int equalPartition(int N, int arr[])
     {
@@ -30,8 +37,7 @@ public:
         if(sum%2){
             return 0;
         }
-       return solve(N,arr,0,sum/2);
-        
+        return solve(N,arr,sum/2,0);
     }
 };
 
