@@ -10,39 +10,38 @@ using namespace std;
 class Solution{
     public:
     string findOrder(string dict[], int N, int K) {
-      vector<int> indeg(K,0);
-      vector<int> graph[K];
-      for(int i=0;i<N-1;i++){
-          string curr=dict[i];
-          string nex=dict[i+1];
-          for(int j=0;j<min(curr.size(),nex.size());j++)
-          {
-              if(curr[j]!=nex[j]){
-                  graph[curr[j]-'a'].push_back(nex[j]-'a');
-                  indeg[nex[j]-'a']++;
-                  break;
-              }
-          }
-      }
-      queue<int> q;
-      string ans="";
-      for(int i=0;i<indeg.size();i++)
-      {
-          if(indeg[i]==0){
-              q.push(i);
-          }
-      }
-      while(q.size()>0){
-          int src=q.front();q.pop();
-          ans+=(src+'a');
-          for(auto it:graph[src]){
-              indeg[it]--;
-              if(indeg[it]==0){
-                  q.push(it);
-              }
-          }
-      }
-      return ans;
+        vector<int> g[K];
+        vector<int> indeg(K,0);
+        for(int i=0;i<N-1;i++){
+            for(int j=0;j<min(dict[i].size(),dict[i+1].size());j++){
+                if(dict[i][j]!=dict[i+1][j]){
+                    g[dict[i][j]-'a'].push_back(dict[i+1][j]-'a');
+                    indeg[dict[i+1][j]-'a']++;
+                    break;
+                }
+            }
+        }
+        string ans="";
+        queue<int> q;
+        for(int i=0;i<indeg.size();i++){
+            if(indeg[i]==0){
+                q.push(i);
+            }
+        }
+        while(q.size()>0){
+            int s=q.size();
+            while(s--){
+            int src=q.front();q.pop();
+            ans+=(src+'a');
+            for(auto it:g[src]){
+                indeg[it]--;
+                if(indeg[it]==0){
+                    q.push(it);
+                }
+            }
+            }
+        }
+        return ans;
     }
 };
 
