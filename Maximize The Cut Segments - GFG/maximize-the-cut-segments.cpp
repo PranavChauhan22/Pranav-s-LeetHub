@@ -13,29 +13,24 @@ class Solution
     //Function to find the maximum number of cuts.
     int maximizeTheCuts(int n, int x, int y, int z)
     {
-        vector<int>dp(n+1,-1);
+        vector<int> dp(n+1,INT_MIN);
         dp[0]=0;
         for(int i=1;i<=n;i++){
-            int m=INT_MIN;
-            if(i-x>=0&&dp[i-x]!=-1)
-            {
-                m=max(m,dp[i-x]);
+            if(i-x>=0){
+                dp[i]=max(dp[i],dp[i-x]+1);
+            } 
+            if(i-y>=0){
+                dp[i]=max(dp[i],dp[i-y]+1);
             }
-            if(i-y>=0&&dp[i-y]!=-1)
-            {
-                m=max(m,dp[i-y]);
-            }
-            if(i-z>=0&&dp[i-z]!=-1)
-            {
-                m=max(m,dp[i-z]);
-            }
-            if(m!=INT_MIN){
-                dp[i]=m+1;
+            if(i-z>=0){
+                dp[i]=max(dp[i],dp[i-z]+1);
             }
         }
-        return (dp[n]==-1?0:dp[n]);
+    
+        return (dp[n]<0?0:dp[n]);
     }
 };
+
 
 // { Driver Code Starts.
 int main() {
