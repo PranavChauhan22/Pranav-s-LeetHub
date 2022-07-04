@@ -11,40 +11,46 @@ class Solution
     //of all the characters of string p.
     string smallestWindow (string s, string p)
     {
-        vector<int> mp(256,0);
+        vector<int> arr(26,0);
         int cnt=0;
         for(int i=0;i<p.size();i++){
-            if(mp[p[i]]==0){
+            if(arr[p[i]-'a']==0){
                 cnt++;
+                
             }
-            mp[p[i]]++;
+            arr[p[i]-'a']++;
         }
-        int ans=INT_MAX,start=0;
+        
+        int len=INT_MAX;
+        int start=-1;
         int i=0,j=0;
         while(j<s.size()){
-            mp[s[j]]--;
-            if(mp[s[j]]==0){
+            arr[s[j]-'a']--;
+            if(arr[s[j]-'a']==0){
                 cnt--;
             }
             if(cnt==0){
-            while(cnt==0){
-                if(j-i+1<ans){
-                    ans=min(ans,j-i+1);
-                    start=i;
+                while(cnt==0){
+                    if(j-i+1<len){
+                        len=j-i+1;
+                        start=i;
+                    }
+                    arr[s[i]-'a']++;
+                    if(arr[s[i]-'a']>0){
+                        cnt++;
+                    }
+                    i++;
                 }
-                mp[s[i]]++;
-                if(mp[s[i]]>0){
-                    cnt++;
-                }
-                i++;
-            }
             }
             j++;
         }
-        if(ans==INT_MAX){
-            return "-1";
+        if(len!=INT_MAX){
+            return s.substr(start,len);
         }
-        return s.substr(start,ans);
+        return "-1";
+        
+        
+        
     }
 };
 
